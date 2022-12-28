@@ -7,7 +7,7 @@ exports.resizedImagePath = exports.resizeImage = void 0;
 var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
 var resizeImage = function (filename, height, width) {
-    return sharp_1.default(path_1.default.resolve("public/images/full/" + filename + ".jpg"))
+    return (0, sharp_1.default)(path_1.default.resolve("public/images/full/".concat(filename, ".jpg")))
         .resize({
         width: width,
         height: height,
@@ -17,6 +17,6 @@ var resizeImage = function (filename, height, width) {
 };
 exports.resizeImage = resizeImage;
 var resizedImagePath = function (filename, height, width) {
-    return "public/images/resized/" + filename + height + "x" + width + ".jpg";
+    return "public/images/resized/".concat(filename).concat(height, "x").concat(width, ".jpg");
 };
 exports.resizedImagePath = resizedImagePath;
