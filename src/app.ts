@@ -1,22 +1,22 @@
-import express, { Application } from 'express';
+import express from 'express';
+import routes from './routes/index';
 import path from 'path';
-import { routes } from './routes';
-import { morganMiddleware } from './middleware/logger';
-import { pageNotFound404 } from './middleware/pageNotFound404.middleware';
 
-// Get expess
-export const app: Application = express();
+const app = express();
+const port = 3000;
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/api', routes);
+app.use(express.static(path.join(__dirname, '../public')));
 
-app.set('views', path.resolve(__dirname, 'views'));
+app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
-// logger middleware
-app.use(morganMiddleware);
+app.get('/', (req: express.Request, res: express.Response) => {
+  res.redirect('/api');
+});
 
-// Routing
-routes(app);
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
 
-// page not found middleware
-app.use(pageNotFound404);
+export default app;

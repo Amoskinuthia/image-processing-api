@@ -1,150 +1,81 @@
-# Udacity-Image-Processing-API
+# Image Processing API - Udacity Fullstack JS Nanodegree #
 
+## Introduction ##
 
-## Overview
-This is an API that can be used in two different ways. The first, as a simple placeholder API that allows us to place images into our frontend with the size set via url parameters. The second use case is as a library to serve properly scaled versions of our images to the frontend to reduce page load size. 
+This is a simple REST API allowing users to create, access and resize placeholder images using the [Sharp](https://sharp.pixelplumbing.com/) Node.js image processing module.
 
-## Requirement
-Here, I will list all the dependencies used in this project and how to install them.
+---
+## Getting Started ##
 
-#### 1. TypeScript
-`npm i -D typescript ts-node`
+### Installing dependencies ###
 
-#### 2. express and type express(Typescript support for express)
+After cloning the repo, all the project dependencies can be installed using npm:
 ```
-npm i -S express
-npm i -D @types/express
+npm install
 ```
 
-#### 3. nodemon
-`npm i -D nodemon`
+### Running the server ###
 
-#### 4. rimraf
-`npm install --save-dev rimraf`
-
-#### 5. eslint
-`npx eslint --init`
-
-#### 6. prettier 
-`npm install --save-dev prettier`
-
-#### 7. set up prettier and eslint
-`npm install --save-dev eslint-config-prettier eslint-plugin-prettier`
-
-#### 8. Jest with type definition and typescript jest runner
-`npm i -D jest @types/jest ts-jest`
-
-#### 9. SuperTest with type definition
-`npm i -D supertest @types/supertest`
-
-#### 10. morgan and types
-`npm i -P morgan @types/morgan`
-
-#### 11. sharp and types
-`npm i -P sharp @types/sharp`
-
-#### 12. ejs
-`npm install ejs --save`
-
-## How to build and start the server
-The project can be built and run in the following ways
-### 1. Install all dependencies 
-`npm install`
-
-### 2. Build
-`npm run build`
-
-!['build ts to js'](./docs/images/build.png)
-
-This command will build the typeScript code into JavaScript and save them in the `./build` folder.
-
-### 3. Start the Server
-`npm start`
-
-This command will start the server running on port `5000`. And the front end homepage will be accessible at `http://localhost:5000`
-
-## Testing and Linting
-Here, I will show you how to run the test and also how to check that our code respects all the eslint rules.
-
-### 1. Linting
-`npm run lint`
-
-!['linting'](./docs/images/linting.png)
-### 2. Testing
-`npm run test`
-
-!['linting'](./docs/images/jest_test.png)
-
-
-## Endpoints and Functionality. 
-This project defines two endpoint. 
-
-### 1. Homepage endpoint
-`http://localhost:5000`
-
-!['home page'](docs/images/homepage.png)
-
-This endpoint is used to access all images with their original sizes. We will notice that the images displayed on this frontend are very large since we are trying to display the images with their original sizes,
-
-
-### 2. Resize endpoint
-`http://localhost:5000/resize?w=<width>&h=<height>`
-
-Using the endpoint above, we can provide our width and height value that we want our images to be resized. Check the example below
-
-`http://localhost:5000/resize?w=500&h=400`
-
-!['resized image'](./docs/images/resize_500_400.png)
-
-
-
-
-`http://localhost:5000/resize?w=200&h=200`
-
-!['resized image'](./docs/images/resize_200_200.png)
-
-
-This endpoint is used to resize all images found in the `public/images/full` directory and saving them in the `public/images/thumbnails` directory. Then, it will serve these images to the frontend to be viewed. 
-
-If a dimension is given that has all images already resized to that dimension, no futher resizing will take place. Instead, the already resized images with the appropriate dimensions will be pushed to the frontend. 
-
-**NB**: This process takes some few seconds to resize all images in that directory. The more the images, the more time it can take. 
-
-## Middlewwares to be aware of
-I included two middlewares in this project. 
-### 1. Logger Middleware 
-This is for development purposes. It logs  information about the endpoints that is been accessed to the console. 
-
-The images below shows the logger output for accessing both the resize and home page endpoint
-
-!['logger'](./docs/images/logger.png)
-
-### 2. Page Not Found Middleware
-This endpoint handles any unknown endpoints. For now, only two endpoints are recognized
+To execute the application use the following command in terminal:
 
 ```
-http://localhost:5000/resize
-http://localhost:5000/
+npm run start
 ```
 
-If you try to access an enpoint order than these, this moddleware will redirect to a page not found as seen below
+the app will then be available on port 3000 by default, but that can be changed by editing the port constant value in the app.ts file.
 
-!['pageNotFound'](./docs/images/pageNotFound.png)
+### Scripts ###
 
+The following actions can be executed through npm scripts:
 
-## Handling Other Uncertainties
-This API handles situations where there are no images to resize or parameters are not provided to resize the images.
+#### Transpiling typescript to javascript ####
 
-### 1. No images to resize
+```
+npm run build
+```
 
-!['no images to resize'](./docs/images/noImages.png)
+The transpiled code will be available in the `build` folder.
 
-This API uses the directory `./public/images/full` to get images when resizing. If no images are found in this directory and the corresponding resized images can't be found in the `./public/images/thumbnails` directory, then a warning message will be shown on the frontend as seen above.
+#### Testing ####
 
-### 2. No Parameter is provided 
+A jasmine testing suite can be used to validate the endpoint as well as the imageTransform functionality.
 
-!['no images to resize'](./docs/images/noParams.png)
+```
+npm run test
+```
 
-If we are accessing the resizing endpoint, we should also provide the dimension that will be used to resize the images. If no parameter is provided, a warning message will be shown on the frontend as seen above
+#### Formatting ####
 
-NB: At least one parameter should be provided. We may decided to resize only the width or the height. 
+The code can be automatically formatted using prettier. The formatting options can be customised by editin the `.prettierrc`file.
+
+```
+npm run prettier
+```
+
+#### Linting ####
+
+The code can ba automatically linted using ESlint. Note that ESlint will also use prettier to test for incorrect formatting. Rules, plugins and extensions for ESlint can be modified through the `.eslintrc` file.
+
+```
+npm run lint
+```
+---
+## How to use ##
+
+The API offers one endpoint to access and resize images available in the `public/images/full` folder.
+
+The endpoint is `api/images` and requires three query params:
+
+| Query Param   | Value         |
+| ------------- |:-------------:|
+| filename      | the filename (without extension) of one of the images available in the folder |
+| height        | it should be a positive integer      |
+| width         | it should be a positive integer      |
+
+Note that full instructions including a preview of all the available images and their filenames can be accessed using the main API endpoint. Assuming the app is running on port 3000 that would be:
+
+[http://localhost:3000/api](http://localhost:3000/api)
+
+An example of a correct endpoint call would be: 
+
+[http://localhost:3000/api/images?filename=palmtunnel&height=250&width=220](http://localhost:3000/api/images?filename=palmtunnel&height=250&width=220)
