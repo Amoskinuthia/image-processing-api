@@ -76,6 +76,6 @@ Note that full instructions including a preview of all the available images and 
 
 [http://localhost:3000/api](http://localhost:3000/api)
 
-An example of a correct endpoint call would be: 
+An example of a correct endpoint is as shown below: 
 
 [http://localhost:3000/api/images?filename=palmtunnel&height=250&width=220](http://localhost:3000/api/images?filename=palmtunnel&height=250&width=220)
