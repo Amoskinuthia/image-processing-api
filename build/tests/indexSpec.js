@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = __importDefault(require("../app"));
 var supertest_1 = __importDefault(require("supertest"));
-var request = supertest_1.default(app_1.default);
+var request = (0, supertest_1.default)(app_1.default);
 describe('Test endpoint responses', function () {
     it('Gets /api endpoint', function (done) { return __awaiter(void 0, void 0, void 0, function () {
         var response;
